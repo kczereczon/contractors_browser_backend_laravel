@@ -22,9 +22,9 @@ class ContractorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstName . " " . $this->faker->lastName,
+            'name' => $this->faker->company,
             'join_date' => $this->faker->dateTime(),
-            'street' => $this->faker->streetAddress,
+            'street' => $this->faker->streetAddress . ", " . $this->faker->buildingNumber,
             'city' => $this->faker->city,
             'postal_code' => $this->faker->postcode,
             'country' => $this->faker->country,

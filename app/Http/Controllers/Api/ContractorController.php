@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Contractor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -15,16 +16,10 @@ class ContractorController extends Controller
      */
     public function index(Request $request)
     {
-        $country = $request->country;
-
         /** @var Builder $contractors */
         $contractors = new Contractor();
 
-        if(!empty($country)) {
-            $contractors = $contractors->where('country', '=', $country);
-        }
-
-        $contractors = $contractors->get();
+        $contractors = $contractors->all();
 
         return response()->json($contractors, 200);
     }
@@ -53,10 +48,10 @@ class ContractorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Contractor $contractor)
+    public function show($id)
     {
         //
     }
@@ -64,10 +59,10 @@ class ContractorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contractor $contractor)
+    public function edit($id)
     {
         //
     }
@@ -76,10 +71,10 @@ class ContractorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contractor $contractor)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -87,10 +82,10 @@ class ContractorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Contractor  $contractor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contractor $contractor)
+    public function destroy($id)
     {
         //
     }

@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Contractor extends Model
 {
     use HasFactory;
+
+    protected $dates = ['join_date'];
+    protected $fillable = [
+        'name',
+        'nip',
+        'street',
+        'city',
+        'country',
+        'postal_code',
+        'join_date'
+    ];
 }
