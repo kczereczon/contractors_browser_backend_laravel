@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('contractor', ContractorController::class, ['as'=>'api']);
+Route::resource('contractors', ContractorController::class, ['as'=>'api']);
 
