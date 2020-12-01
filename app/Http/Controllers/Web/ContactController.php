@@ -1,28 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contractor;
-use App\Models\Departament;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class ContractorController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        /** @var Builder $contractors */
-        $contractors = new Contractor();
-
-        $contractors = $contractors->with(['departaments', 'contacts'])->get();
-
-        return response()->json($contractors, 200);
+        //
     }
 
     /**

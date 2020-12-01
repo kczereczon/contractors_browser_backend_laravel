@@ -1,28 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Contractor;
-use App\Models\Departament;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\contact;
 use Illuminate\Http\Request;
 
-class ContractorController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        /** @var Builder $contractors */
-        $contractors = new Contractor();
-
-        $contractors = $contractors->with(['departaments', 'contacts'])->get();
-
-        return response()->json($contractors, 200);
+        //
     }
 
     /**
@@ -49,10 +41,10 @@ class ContractorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(contact $contact)
     {
         //
     }
@@ -60,10 +52,10 @@ class ContractorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(contact $contact)
     {
         //
     }
@@ -72,10 +64,10 @@ class ContractorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, contact $contact)
     {
         //
     }
@@ -83,10 +75,10 @@ class ContractorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(contact $contact)
     {
         //
     }
