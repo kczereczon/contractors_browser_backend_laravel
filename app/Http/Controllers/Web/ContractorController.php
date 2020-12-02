@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContractorStoreRequest;
 use App\Models\Contractor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class ContractorController extends Controller
             });
         }
 
-        return view('contractors/index', ['contractors' => $contractors->paginate(15), 'filters' => $request]);
+        return response()->json($contractors->paginate(15), 200);
     }
 
     /**
@@ -53,17 +54,19 @@ class ContractorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ContractorStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContractorStoreRequest $request)
     {
         $input = $request->all();
-        $input['join_date'] = now();
+        $input['contractor']['join_date'] = now();
 
-        $contractor = Contractor::create($input);
+        $contractor = Contractor::create($input['contractor']);
+        $departament = $contractor->departaments()->create(array_merge($input['departament'], ['is_main' => true]));
+        $contact = $departament->contacts()->create($input['contact']);
 
-        return redirect()->route('contractors.show', ['contractor' => $contractor]);
+        return response()->json(Contractor::where('id',$contractor)->with(['departaments', 'departaments.contacts']), 200);
     }
 
     /**
@@ -74,7 +77,7 @@ class ContractorController extends Controller
      */
     public function show(Contractor $contractor)
     {
-        return view('contractors/show', ['contractor' => $contractor]);
+        return response()->json($contractor, $contractor ? 200 : 404);
     }
 
     /**
@@ -85,7 +88,7 @@ class ContractorController extends Controller
      */
     public function edit(Contractor $contractor)
     {
-        return view('contractors/edit', ['contractor' => $contractor]);
+        // return view('contractors/edit', ['contractor' => $contractor]);
     }
 
     /**
@@ -99,17 +102,19 @@ class ContractorController extends Controller
     {
         $contractor = $contractor->update($request->all());
 
-        return redirect()->route('contractors.show', ['contractor' => $contractor]);
+        return response()->json($contractor);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Contractor  $contractor
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contractor $contractor)
     {
-        //
+        $delete = $contractor->delete();
+
+        return response()->json($delete, $delete ? 200 : 500);
     }
 }

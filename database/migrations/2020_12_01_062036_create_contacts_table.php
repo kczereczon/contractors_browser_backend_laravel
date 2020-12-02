@@ -21,7 +21,7 @@ class CreateContactsTable extends Migration
             $table->string('email');
             $table->string('phone', 9);
             $table->bigInteger("departament_id")->nullable()->unsigned();
-            $table->foreign('departament_id')->references('id')->on('departaments');
+            $table->foreign('departament_id')->references('id')->on('departaments')->onDelete('cascade');;
             $table->timestamps();
         });
     }

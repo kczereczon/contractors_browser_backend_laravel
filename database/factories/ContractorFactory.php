@@ -24,7 +24,7 @@ class ContractorFactory extends Factory
         return [
             'name' => $this->faker->company,
             'join_date' => $this->faker->dateTime(),
-            'NIP' => $this->faker->unique()->regexify('[0-9]{10}', true)
+            'nip' => $this->faker->unique()->regexify('[0-9]{10}', true)
         ];
     }
 }

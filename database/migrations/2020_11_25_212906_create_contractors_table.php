@@ -13,11 +13,11 @@ class CreateContractorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contractors', function (Blueprint $table) {
+    Schema::create('contractors', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->dateTime("join_date");
-            $table->string("NIP", 10)->unique();
+            $table->string("nip", 10)->unique();
             $table->timestamps();
         });
     }
