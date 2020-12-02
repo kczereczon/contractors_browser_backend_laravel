@@ -21,6 +21,7 @@ class CreateDepartamentsTable extends Migration
             $table->string("city");
             $table->string("postal_code");
             $table->string("country");
+            $table->boolean("is_main")->default(false);
             $table->timestamps();
             $table->foreign('contractor_id')->references('id')->on('contractors');
         });

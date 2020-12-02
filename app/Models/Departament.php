@@ -15,4 +15,9 @@ class Departament extends Model
         'country',
         'postal_code',
     ];
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ContractorController;
+use App\Http\Controllers\Web\ContractorController as WebContractorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('contractors', ContractorController::class, ['as'=>'api']);
-
+Route::resource('contractor', ContractorController::class, ['as'=>'api']);
+Route::prefix('web')->group(function () {
+    Route::resource('contractor', WebContractorController::class);
+});

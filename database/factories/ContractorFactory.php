@@ -24,10 +24,6 @@ class ContractorFactory extends Factory
         return [
             'name' => $this->faker->company,
             'join_date' => $this->faker->dateTime(),
-            'street' => $this->faker->streetAddress . ", " . $this->faker->buildingNumber,
-            'city' => $this->faker->city,
-            'postal_code' => $this->faker->postcode,
-            'country' => $this->faker->country,
             'NIP' => $this->faker->unique()->regexify('[0-9]{10}', true)
         ];
     }

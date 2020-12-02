@@ -24,7 +24,6 @@ class DepartamentFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            //'contractor_id' => Contractor::factory(),
             'street' => $this->faker->streetAddress . ", " . $this->faker->buildingNumber,
             'city' => $this->faker->city,
             'postal_code' => $this->faker->postcode,

@@ -26,7 +26,6 @@ class ContactFactory extends Factory
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->email,
             'phone' => $this->faker->unique()->regexify('[0-9]{9}', true)
-            //
         ];
     }
 }

@@ -17,9 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
-        \App\Models\Contractor::factory(10)->has(Departament::factory()->count(3))->has(Contact::factory()->count(1))->create(); 
+        $contact = Contact::factory()->count(1);
 
+        $departament = Departament::factory()->has($contact)->state(["is_main" => true])->count(1);
 
+        \App\Models\Contractor::factory(10)->has($departament)->create();
     }
 }

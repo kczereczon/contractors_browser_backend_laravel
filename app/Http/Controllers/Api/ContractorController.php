@@ -20,6 +20,10 @@ class ContractorController extends Controller
         /** @var Builder $contractors */
         $contractors = new Contractor();
 
+        if(!empty($request->nip)) {
+            $contractors = $contractors->where("NIP", $request->nip);
+        }
+
         $contractors = $contractors->with(['departaments', 'contacts'])->get();
 
         return response()->json($contractors, 200);
@@ -54,7 +58,7 @@ class ContractorController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

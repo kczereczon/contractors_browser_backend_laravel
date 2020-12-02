@@ -19,12 +19,9 @@ class Contractor extends Model
         'postal_code',
         'join_date'
     ];
+
     public function departaments()
     {
         return $this->hasMany(Departament::class);
-    }
-    public function contacts()
-    {
-        return $this->hasMany(Contact::class);
     }
 }

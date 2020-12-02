@@ -20,10 +20,8 @@ class CreateContactsTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('phone', 9);
-            $table->bigInteger("contractor_id")->nullable()->unsigned();
-            $table->bigInteger("department_id")->nullable()->unsigned();
-            $table->foreign('contractor_id')->references('id')->on('contractors');
-            $table->foreign('department_id')->references('id')->on('departaments');
+            $table->bigInteger("departament_id")->nullable()->unsigned();
+            $table->foreign('departament_id')->references('id')->on('departaments');
             $table->timestamps();
         });
     }
