@@ -23,6 +23,14 @@ class ContractorTest extends TestCase
         $response->assertJsonPath('total', 1);
     }
 
+    public function testGetContractorsExternalApi()
+    {
+        $this->createContractor();
+
+        $response = $this->json('GET', '/api/contractor');
+        $response->assertStatus(200);
+    }
+
     public function testCreateContractor()
     {
         $contactFaked = Contact::factory()->make()->toArray();
@@ -52,6 +60,20 @@ class ContractorTest extends TestCase
     public function testGetNotExistingContractor()
     {
         $response = $this->json('GET', '/api/web/contractor/' . rand(0,100));
+        $response->assertStatus(404);
+    }
+
+    public function testGetExistingContractorExternalApiByNip()
+    {
+        $contractor = $this->createContractor();
+
+        $response = $this->json('GET', '/api/contractor/' . $contractor->nip);
+        $response->assertStatus(200);
+    }
+
+    public function testGetNotExistingContractorExternalApi()
+    {
+        $response = $this->json('GET', '/api/contractor/' . rand(0,100));
         $response->assertStatus(404);
     }
 
