@@ -77,6 +77,7 @@ class ContractorController extends Controller
      */
     public function show(Contractor $contractor)
     {
+        $contractor = Contractor::where('id', $contractor->id)->with(['departaments', 'departaments.contacts'])->first();
         return response()->json($contractor, $contractor ? 200 : 404);
     }
 

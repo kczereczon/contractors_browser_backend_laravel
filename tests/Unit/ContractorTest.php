@@ -14,6 +14,15 @@ class ContractorTest extends TestCase
 
     protected $model = Contractor::class;
 
+    public function testGetContractors()
+    {
+        $this->createContractor();
+
+        $response = $this->json('GET', '/api/web/contractor');
+        $response->assertStatus(200);
+        $response->assertJsonPath('total', 1);
+    }
+
     public function testCreateContractor()
     {
         $contactFaked = Contact::factory()->make()->toArray();
