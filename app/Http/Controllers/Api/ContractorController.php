@@ -20,11 +20,7 @@ class ContractorController extends Controller
         /** @var Builder $contractors */
         $contractors = new Contractor();
 
-        if(!empty($request->nip)) {
-            $contractors = $contractors->where("NIP", $request->nip);
-        }
-
-        $contractors = $contractors->with(['departaments', 'contacts'])->get();
+        $contractors = $contractors->get(['id', 'name', 'nip']);
 
         return response()->json($contractors, 200);
     }
@@ -58,7 +54,12 @@ class ContractorController extends Controller
      */
     public function show($id)
     {
+        /** @var Builder $contractors */
+        $contractors = new Contractor();
 
+        $contractors = $contractors->where("nip", $id)->with(['departaments:id,contractor_id,name,street,city,postal_code,country,is_main', 'departaments.contacts:id,departament_id,name,last_name,email,phone'])->firstOrFail(["id", "name", "join_date", "nip"]);
+
+        return response()->json($contractors, 200);
     }
 
     /**
