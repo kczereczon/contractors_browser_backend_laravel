@@ -50,7 +50,7 @@ class DepartamentTest extends TestCase
 
     public function testGetExistingdepartament()
     {
-        $departament = $this->createdepartament();
+        $departament = $this->createDepartament();
 
         $response = $this->json('GET', '/api/web/departament/' . $departament->id);
         $response->assertStatus(200);
@@ -89,7 +89,7 @@ class DepartamentTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function createdepartament()
+    public function createDepartament()
     {
         $contact = Contact::factory()->count(1);
         return Departament::factory()->has($contact)->create();
