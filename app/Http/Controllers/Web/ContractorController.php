@@ -74,7 +74,7 @@ class ContractorController extends Controller
             $contractor->delete();
         }
 
-        return response()->json(Contractor::where('id',$contractor)->with(['departaments', 'departaments.contacts']), 200);
+        return response()->json(Contractor::where('id',$contractor->id)->with(['departaments', 'departaments.contacts'])->first(), 200);
     }
 
     /**
