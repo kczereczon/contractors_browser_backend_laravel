@@ -16,6 +16,17 @@ class ContractorUpdateRequest extends FormRequest
         return true;
     }
 
+    public function messages()
+    {
+        return [
+            'required' => 'To pole jest wymagane!',
+            'string' => 'To pole musi być łańcuchem znaków.',
+            'digits' => "To pole musi mieć dokładnie :digits cyfr!",
+            'email' => "Proszę wpisać poprawny adres email",
+            'unique' => "Zarejestrowaliśmy już ten NIP w bazie."
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,8 +35,8 @@ class ContractorUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "string",
-            "nip" => "string|size:10",
+            "name" => ["string"],
+            "nip" => ["string","digits:10"],
         ];
     }
 }

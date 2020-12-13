@@ -65,7 +65,14 @@ class ContractorController extends Controller
 
         $contractor = Contractor::create($input['contractor']);
         $departament = $contractor->departaments()->create(array_merge($input['departament'], ['is_main' => true]));
+        if(!$departament) {
+            $contractor->delete();
+        }
         $contact = $departament->contacts()->create($input['contact']);
+        if(!$contact) {
+            $departament->delete();
+            $contractor->delete();
+        }
 
         return response()->json(Contractor::where('id',$contractor)->with(['departaments', 'departaments.contacts']), 200);
     }
@@ -102,7 +109,7 @@ class ContractorController extends Controller
      */
     public function update(ContractorUpdateRequest $request, Contractor $contractor)
     {
-        $input = $request->all()["params"];
+        $input = $request->all();
         $contractor = $contractor->update($input);
 
         return response()->json($contractor);

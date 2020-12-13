@@ -21,7 +21,7 @@ class ContractorStoreRequest extends FormRequest
         return [
             'required' => 'To pole jest wymagane!',
             'string' => 'To pole musi być łańcuchem znaków.',
-            'digits' => "To pole musi mieć dokładnie :digits znaków!",
+            'digits' => "To pole musi mieć dokładnie :digits cyfr!",
             'email' => "Proszę wpisać poprawny adres email",
             'unique' => "Zarejestrowaliśmy już ten NIP w bazie."
         ];
@@ -45,7 +45,7 @@ class ContractorStoreRequest extends FormRequest
             "contact.name" => ["required"],
             "contact.last_name" => ["required"],
             "contact.email" => ["required", "email"],
-            "contact.phone" => ["required", "digits:10"],
+            "contact.phone" => ["required", "digits:9"],
         ];
     }
 }
