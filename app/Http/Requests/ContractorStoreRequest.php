@@ -16,6 +16,17 @@ class ContractorStoreRequest extends FormRequest
         return true;
     }
 
+    public function messages()
+    {
+        return [
+            'required' => 'To pole jest wymagane!',
+            'string' => 'To pole musi być łańcuchem znaków.',
+            'digits' => "To pole musi mieć dokładnie :digits znaków!",
+            'email' => "Proszę wpisać poprawny adres email",
+            'unique' => "Zarejestrowaliśmy już ten NIP w bazie."
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,17 +35,17 @@ class ContractorStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "departament.name" => "required",
-            "departament.city" => "required",
-            "departament.street" => "required",
-            "departament.postal_code" => "required",
-            "departament.country" => "required",
-            "contractor.name" => "required",
-            "contractor.nip" => "required|string|size:10",
-            "contact.name" => "required",
-            "contact.last_name" => "required",
-            "contact.email" => "required",
-            "contact.phone" => "required|string|size:9",
+            "departament.name" => ["required"],
+            "departament.city" => ["required"],
+            "departament.street" => ["required"],
+            "departament.postal_code" => ["required"],
+            "departament.country" => ["required"],
+            "contractor.name" => ["required"],
+            "contractor.nip" => ["required", "digits:10", "unique:contractors,nip"],
+            "contact.name" => ["required"],
+            "contact.last_name" => ["required"],
+            "contact.email" => ["required", "email"],
+            "contact.phone" => ["required", "digits:10"],
         ];
     }
 }
