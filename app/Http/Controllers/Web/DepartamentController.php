@@ -18,7 +18,7 @@ class DepartamentController extends Controller
     {
         $departaments = new Departament();
         if(!empty($req->name)){
-            $departaments = $departaments->where('name', 'LIKE', $req->name);
+            $departaments = $departaments->where('name', 'LIKE', $req->name . "%");
         }
         
         if(!empty($req->contractor_id)){
@@ -26,15 +26,15 @@ class DepartamentController extends Controller
         }
 
         if(!empty($req->street)){
-            $departaments = $departaments->where('street', 'LIKE', $req->street);
+            $departaments = $departaments->where('street', 'LIKE', $req->street . "%");
         }
 
         if(!empty($req->city)){
-            $departaments = $departaments->where('city', 'LIKE', $req->city);
+            $departaments = $departaments->where('city', 'LIKE', $req->city . "%");
         }
 
         if(!empty($req->postal_code)){
-            $departaments = $departaments->where('postal_code', '=', $req->postal_code);
+            $departaments = $departaments->where('postal_code', 'LIKE', $req->postal_code . "%");
         }
 
         return response()->json($departaments->paginate(12), 200);
