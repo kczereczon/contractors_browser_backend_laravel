@@ -123,4 +123,18 @@ class DepartamentController extends Controller
         $departaments = Contractor::findOrFail($id)->departaments()->paginate(5);
         return response()->json($departaments, $departaments ? 200 : 404);
     }
+
+    public function getDepartamentAll(Request $req){
+        $departaments = new Departament();
+        
+        if(!empty($req->name)){
+            $departaments = $departaments->where('name', 'LIKE', $req->name);
+        }
+        
+        if(!empty($req->id)){
+            $departaments = $departaments->where('id', '=', $req->id);
+        }
+
+        return response()->json($departaments->get(['name','id']), 200);
+    }
 }
