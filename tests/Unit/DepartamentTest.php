@@ -87,7 +87,7 @@ class DepartamentTest extends TestCase
     {
         $departament = $this->createDepartament();
 
-        $response = $this->json('GET', '/api/web/departament/contractor/' . $departament->id);
+        $response = $this->json('GET', '/api/web/departament/contractor/' . $departament->contractor_id);
         $response->assertStatus(200);
     }
 

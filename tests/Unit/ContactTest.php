@@ -82,8 +82,22 @@ class ContactTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function testGetContractorContact()
+    {
+        $contractor = $this->createContractor();
+        $response = $this->json('GET', '/api/web/contact/contractor/' . $contractor->id);
+        $response->assertStatus(200);
+}
+
     public function createContact()
     {
         return Contact::factory()->create();
+    }
+    
+    public function createContractor()
+    {
+        $contact = Contact::factory()->count(1);
+        $departament = Departament::factory()->has($contact)->state(["is_main" => true])->count(1);
+        return Contractor::factory()->has($departament)->create();
     }
 }
