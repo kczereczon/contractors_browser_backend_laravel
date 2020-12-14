@@ -116,4 +116,18 @@ class DepartamentController extends Controller
 
         return response()->json($delete, $delete ? 200 : 500);
     }
+
+    public function getDepartamentAll(Request $req){
+        $departaments = new Departament();
+        
+        if(!empty($req->name)){
+            $departaments = $departaments->where('name', 'LIKE', $req->name);
+        }
+        
+        if(!empty($req->id)){
+            $departaments = $departaments->where('id', '=', $req->id);
+        }
+
+        return response()->json($departaments->get(['name','id']), 200);
+    }
 }
