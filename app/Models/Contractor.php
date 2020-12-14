@@ -13,10 +13,6 @@ class Contractor extends Model
     protected $fillable = [
         'name',
         'nip',
-        'street',
-        'city',
-        'country',
-        'postal_code',
         'join_date'
     ];
 

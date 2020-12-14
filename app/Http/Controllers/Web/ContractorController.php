@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContractorStoreRequest;
+use App\Http\Requests\ContractorUpdateRequest;
 use App\Models\Contractor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -55,9 +56,16 @@ class ContractorController extends Controller
 
         $contractor = Contractor::create($input['contractor']);
         $departament = $contractor->departaments()->create(array_merge($input['departament'], ['is_main' => true]));
+        if(!$departament) {
+            $contractor->delete();
+        }
         $contact = $departament->contacts()->create($input['contact']);
+        if(!$contact) {
+            $departament->delete();
+            $contractor->delete();
+        }
 
-        return response()->json(Contractor::where('id',$contractor)->with(['departaments', 'departaments.contacts']), 200);
+        return response()->json(Contractor::where('id',$contractor->id)->with(['departaments', 'departaments.contacts'])->first(), 200);
     }
 
     /**
@@ -90,9 +98,10 @@ class ContractorController extends Controller
      * @param  Contractor  $contractor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contractor $contractor)
+    public function update(ContractorUpdateRequest $request, Contractor $contractor)
     {
-        $contractor = $contractor->update($request->all());
+        $input = $request->all();
+        $contractor = $contractor->update($input);
 
         return response()->json($contractor);
     }
