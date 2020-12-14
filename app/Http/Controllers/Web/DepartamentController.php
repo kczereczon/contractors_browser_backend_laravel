@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartamentStoreRequest;
 use App\Models\Departament;
+use App\Models\Contractor;
 use Illuminate\Http\Request;
 
 class DepartamentController extends Controller
@@ -115,5 +116,11 @@ class DepartamentController extends Controller
         $delete = $departament->delete();
 
         return response()->json($delete, $delete ? 200 : 500);
+    }
+
+    public function getContractorDepartament(Request $request, $id)
+    {
+        $departaments = Contractor::findOrFail($id)->departaments()->paginate(5);
+        return response()->json($departaments, $departaments ? 200 : 404);
     }
 }
