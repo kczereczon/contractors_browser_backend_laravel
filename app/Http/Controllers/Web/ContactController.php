@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactStoreRequest;
 use App\Http\Requests\ContactUpdateRequest;
 use App\Models\Contact;
+use App\Models\Contractor;
+use App\Models\Departament;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -116,4 +118,11 @@ class ContactController extends Controller
 
         return response()->json($delete, $delete ? 200 : 500);
     }
+
+    public function getContractorContact(Request $request, $id)
+    {
+        $contacts = Contractor::findOrFail($id)->contacts()->paginate(5);
+        return response()->json($contacts, $contacts ? 200 : 404);
+    }
+
 }

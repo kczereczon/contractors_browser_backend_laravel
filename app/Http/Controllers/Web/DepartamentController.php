@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartamentStoreRequest;
 use App\Models\Departament;
+use App\Models\Contractor;
 use Illuminate\Http\Request;
 
 class DepartamentController extends Controller
@@ -117,17 +118,9 @@ class DepartamentController extends Controller
         return response()->json($delete, $delete ? 200 : 500);
     }
 
-    public function getDepartamentAll(Request $req){
-        $departaments = new Departament();
-        
-        if(!empty($req->name)){
-            $departaments = $departaments->where('name', 'LIKE', $req->name);
-        }
-        
-        if(!empty($req->id)){
-            $departaments = $departaments->where('id', '=', $req->id);
-        }
-
-        return response()->json($departaments->get(['name','id']), 200);
+    public function getContractorDepartament(Request $request, $id)
+    {
+        $departaments = Contractor::findOrFail($id)->departaments()->paginate(5);
+        return response()->json($departaments, $departaments ? 200 : 404);
     }
 }
