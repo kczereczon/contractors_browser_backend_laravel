@@ -27,16 +27,7 @@ class ContractorController extends Controller
         if (!empty($request->nip)) {
             $contractors = $contractors->where('NIP', 'LIKE', $request->nip . "%");
         }
-
-        if (!empty($request->address)) {
-            $contractors = $contractors->where(function ($query) use ($request) {
-                /** @var QueryBuilder $query */
-                $query->orWhere('city', 'LIKE', $request->address . "%")
-                    ->orWhere('street', 'LIKE', $request->address . "%")
-                    ->orWhere('country', 'LIKE', $request->address . "%")
-                    ->orWhere('postal_code', 'LIKE', $request->address . "%");
-            });
-        }
+        
 
         return response()->json($contractors->paginate(15), 200);
     }

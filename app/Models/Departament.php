@@ -14,10 +14,15 @@ class Departament extends Model
         'city',
         'country',
         'postal_code',
+        'contractor_id',
     ];
 
     public function contacts()
     {
         return $this->hasMany(Contact::class);
+    }
+
+    public function contractor(){
+        return $this->belongsTo(Contractor::class);
     }
 }

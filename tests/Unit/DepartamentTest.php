@@ -32,17 +32,18 @@ class DepartamentTest extends TestCase
     }
 
     public function testCreateDepartament()
-    {
+    {   
+        $contractorFaked = Contractor::factory()->create();
         $contactFaked = Contact::factory()->make()->toArray();
         $departamentFaked = Departament::factory()->make()->toArray();
 
-        $response = $this->json('POST', '/api/web/departament', array_merge(["departament" => $departamentFaked], ["contact" => $contactFaked]));
+        $response = $this->json('POST', '/api/web/departament', array_merge(["departament" => array_merge(["contractor_id" => $contractorFaked->id], $departamentFaked)], ["contact" => $contactFaked]));
         $response->assertStatus(200);
     }
 
     public function testCreateDepartamentMissingData()
     {
-        $departamentFaked = departament::factory()->make()->toArray();
+        $departamentFaked = Departament::factory()->make()->toArray();
 
         $response = $this->json('POST', '/api/web/departament', ["departament" => $departamentFaked]);
         $response->assertStatus(422);
@@ -91,7 +92,8 @@ class DepartamentTest extends TestCase
 
     public function createDepartament()
     {
+        $contractor = Contractor::factory();
         $contact = Contact::factory()->count(1);
-        return Departament::factory()->has($contact)->create();
+        return Departament::factory()->for($contractor)->has($contact)->create();
     }
 }

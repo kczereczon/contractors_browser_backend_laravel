@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DepartamentStoreRequest;
 use App\Models\Departament;
 use Illuminate\Http\Request;
 
@@ -37,7 +36,7 @@ class DepartamentController extends Controller
             $departaments = $departaments->where('postal_code', '=', $req->postal_code);
         }
 
-        return response()->json($departaments->paginate(12), 200);
+        return response()->json($departaments, 200);
     }
 
     /**
@@ -47,7 +46,7 @@ class DepartamentController extends Controller
      */
     public function create()
     {
-       //
+        //
     }
 
     /**
@@ -56,14 +55,9 @@ class DepartamentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DepartamentStoreRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
-
-        $departament = Departament::create($input['departament']);
-        $contact = $departament->contacts()->create($input['contact']);
-
-        return response()->json(Departament::where('id',$departament)->with(['departament.contacts']), 200);
+        //
     }
 
     /**
@@ -74,9 +68,11 @@ class DepartamentController extends Controller
      */
     public function show(Departament $departament)
     {
-        $departament = $departament->where('id', $departament->id)->first();
-        
-        return response()->json($departament, $departament ? 200 : 404);
+        $departament = new Departament();
+
+        $departament = $departament->get(['name', 'street', 'postal_code', 'city', 'country']);
+
+        return response()->json($departament, 200);
     }
 
     /**
@@ -99,9 +95,7 @@ class DepartamentController extends Controller
      */
     public function update(Request $request, Departament $departament)
     {
-        $departament = $departament->update($request->all());
-
-        return response()->json($departament);
+        //
     }
 
     /**
@@ -112,8 +106,6 @@ class DepartamentController extends Controller
      */
     public function destroy(Departament $departament)
     {
-        $delete = $departament->delete();
-
-        return response()->json($delete, $delete ? 200 : 500);
+        //
     }
 }
