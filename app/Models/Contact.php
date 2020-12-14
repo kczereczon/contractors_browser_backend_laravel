@@ -14,4 +14,9 @@ class Contact extends Model
         'email',
         'phone'
     ];
+    public function departament(){
+        return $this->belongsTo(Departament::class);
+    }
 }
+
+

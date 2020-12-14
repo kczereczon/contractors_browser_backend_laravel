@@ -23,13 +23,6 @@ class ContactTest extends TestCase
         $response->assertJsonPath('total', 1);
     }
 
-    public function testGetContactsExternalApi()
-    {
-        $this->createContact();
-
-        $response = $this->json('GET', '/api/contact');
-        $response->assertStatus(200);
-    }
 
     public function testCreateContact()
     {
@@ -43,6 +36,7 @@ class ContactTest extends TestCase
     {
         $contactFaked = Contact::factory()->make()->toArray();
 
+        unset($contactFaked['last_name']);
         $response = $this->json('POST', '/api/web/contact', ["contact" => $contactFaked]);
         $response->assertStatus(422);
     }

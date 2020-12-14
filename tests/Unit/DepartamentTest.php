@@ -23,13 +23,6 @@ class DepartamentTest extends TestCase
         $response->assertJsonPath('total', 1);
     }
 
-    public function testGetDepartamentsExternalApi()
-    {
-        $this->createDepartament();
-
-        $response = $this->json('GET', '/api/departament');
-        $response->assertStatus(200);
-    }
 
     public function testCreateDepartament()
     {   
