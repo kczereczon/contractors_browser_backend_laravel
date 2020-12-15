@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartamentStoreRequest;
 use App\Models\Departament;
 use App\Models\Contractor;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class DepartamentController extends Controller
@@ -122,6 +123,12 @@ class DepartamentController extends Controller
     {
         $departaments = Contractor::findOrFail($id)->departaments()->paginate(5);
         return response()->json($departaments, $departaments ? 200 : 404);
+    }
+
+    public function getDepartamentContact(Request $request, $id)
+    {
+        $contacts = Departament::findOrFail($id)->contacts()->paginate(5);
+        return response()->json($contacts, $contacts ? 200 : 404);
     }
 
     public function getDepartamentAll(Request $req){

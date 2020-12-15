@@ -91,6 +91,13 @@ class DepartamentTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testGetDepartamentContact()
+    {
+        $departament = $this->createDepartament();
+        $response = $this->json('GET', '/api/web/contact/departament/' . $departament->id);
+        $response->assertStatus(200);
+}
+
     public function testGetDepartamentAll()
     {
         $departament = $this->createDepartament();
@@ -104,6 +111,11 @@ class DepartamentTest extends TestCase
         $contractor = Contractor::factory();
         $contact = Contact::factory()->count(1);
         return Departament::factory()->for($contractor)->has($contact)->create();
+    }
+    
+    public function createContact()
+    {
+        return Contact::factory()->create();
     }
    
 }

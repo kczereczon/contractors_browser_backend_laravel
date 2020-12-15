@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('contractor', ContractorController::class, ['as'=>'api']);
 Route::prefix('web')->group(function () {
     Route::get('/departament/contractor/{id}', [WebDepartamentController::class, 'getContractorDepartament']);
+    Route::get('/contact/departament/{id}', [WebDepartamentController::class, 'getDepartamentContact']);
     Route::get('/contact/contractor/{id}', [WebContactController::class, 'getContractorContact']);
     Route::get('/departament/all', [WebDepartamentController::class, 'getDepartamentAll']);
     Route::resource('contractor', WebContractorController::class);
