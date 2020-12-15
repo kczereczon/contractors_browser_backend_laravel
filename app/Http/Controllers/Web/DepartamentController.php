@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartamentStoreRequest;
+use App\Http\Requests\DepartamentUpdateRequest;
 use App\Models\Departament;
 use App\Models\Contractor;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class DepartamentController extends Controller
             $departaments = $departaments->where('postal_code', 'LIKE', $req->postal_code . "%");
         }
 
-        return response()->json($departaments->paginate(12), 200);
+        return response()->json($departaments->with('contractor:id,name')->paginate(12), 200);
     }
 
     /**
@@ -94,11 +95,11 @@ class DepartamentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param   DepartamentUpdateRequest $request
      * @param  \App\Models\Departament  $departament
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Departament $departament)
+    public function update(DepartamentUpdateRequest $request, Departament $departament)
     {
         $departament = $departament->update($request->all());
 
