@@ -65,7 +65,7 @@ class DepartamentController extends Controller
         $departament = Departament::create($input['departament']);
         $contact = $departament->contacts()->create($input['contact']);
 
-        return response()->json(Departament::where('id',$departament)->with(['departament.contacts']), 200);
+        return response()->json(Departament::where('id',$departament->id)->first(), 200);
     }
 
     /**
