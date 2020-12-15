@@ -20,4 +20,9 @@ class Contractor extends Model
     {
         return $this->hasMany(Departament::class);
     }
+
+    public function contacts()
+    {
+        return $this->hasManyThrough(Contact::class, Departament::class);
+    }
 }
