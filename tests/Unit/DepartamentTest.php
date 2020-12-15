@@ -65,8 +65,10 @@ class DepartamentTest extends TestCase
 
     public function testUpdateDepartament()
     {
+
         $departament = $this->createDepartament();
         $departamentFaked = Departament::factory()->make()->toArray();
+        $departamentFaked['contractor_id'] = $departament->contractor->id;
 
         $response = $this->json('PUT', '/api/web/departament/' . $departament->id, $departamentFaked);
         $response->assertStatus(200);

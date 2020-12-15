@@ -41,6 +41,7 @@ class DepartamentStoreRequest extends FormRequest
             "departament.street" => ["required"],
             "departament.postal_code" => ["required"],
             "departament.country" => ["required"],
+            "departament.contractor_id" => ["required"],
             "contact.name" => ["required"],
             "contact.last_name" => ["required"],
             "contact.email" => ["required", "email"],

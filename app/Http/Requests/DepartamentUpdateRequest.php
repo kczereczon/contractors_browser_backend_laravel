@@ -39,6 +39,7 @@ class DepartamentUpdateRequest extends FormRequest
             "street" => ["required"],
             "postal_code" => ["required"],
             "country" => ["required"],
+            "contractor_id" => ["required"]
         ];
     }
 }
