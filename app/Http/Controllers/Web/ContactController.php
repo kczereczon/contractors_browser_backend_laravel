@@ -39,7 +39,7 @@ class ContactController extends Controller
             $contacts = $contacts->where('phone', 'LIKE', $request->phone . "%");
             }
 
-       return response()->json($contacts->paginate(15), 200);
+       return response()->json($contacts->with(['departament:id,name,contractor_id','departament.contractor:id,name'])->paginate(15), 200);
    }
 
     /**
@@ -61,6 +61,7 @@ class ContactController extends Controller
     public function store(ContactStoreRequest $request)
     {
         $input = $request->all();
+
 
         $contact = Contact::create($input['contact']);
 

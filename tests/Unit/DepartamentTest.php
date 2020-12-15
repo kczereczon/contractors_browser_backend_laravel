@@ -29,6 +29,7 @@ class DepartamentTest extends TestCase
         $contractorFaked = Contractor::factory()->create();
         $contactFaked = Contact::factory()->make()->toArray();
         $departamentFaked = Departament::factory()->make()->toArray();
+        
 
         $response = $this->json('POST', '/api/web/departament', array_merge(["departament" => array_merge(["contractor_id" => $contractorFaked->id], $departamentFaked)], ["contact" => $contactFaked]));
         $response->assertStatus(200);
@@ -65,8 +66,10 @@ class DepartamentTest extends TestCase
 
     public function testUpdateDepartament()
     {
+
         $departament = $this->createDepartament();
         $departamentFaked = Departament::factory()->make()->toArray();
+        $departamentFaked['contractor_id'] = $departament->contractor->id;
 
         $response = $this->json('PUT', '/api/web/departament/' . $departament->id, $departamentFaked);
         $response->assertStatus(200);

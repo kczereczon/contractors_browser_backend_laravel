@@ -12,7 +12,8 @@ class Contact extends Model
         'name',
         'last_name',
         'email',
-        'phone'
+        'phone',
+        'departament_id'
     ];
     public function departament(){
         return $this->belongsTo(Departament::class);

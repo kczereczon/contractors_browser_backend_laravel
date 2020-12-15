@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DepartamentStoreRequest extends FormRequest
+class DepartamentUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class DepartamentStoreRequest extends FormRequest
     {
         return true;
     }
-
+    
     public function messages()
     {
         return [
@@ -26,26 +26,20 @@ class DepartamentStoreRequest extends FormRequest
             'unique' => "Zarejestrowaliśmy już ten NIP w bazie."
         ];
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-
     public function rules()
     {
         return [
-            "departament.name" => ["required"],
-            "departament.city" => ["required"],
-            "departament.street" => ["required"],
-            "departament.postal_code" => ["required"],
-            "departament.country" => ["required"],
-            "departament.contractor_id" => ["required"],
-            "contact.name" => ["required"],
-            "contact.last_name" => ["required"],
-            "contact.email" => ["required", "email"],
-            "contact.phone" => ["required", "digits:9"],
+            "name" => ["required"],
+            "city" => ["required"],
+            "street" => ["required"],
+            "postal_code" => ["required"],
+            "country" => ["required"],
+            "contractor_id" => ["required"]
         ];
     }
 }
