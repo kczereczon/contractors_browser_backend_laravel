@@ -132,6 +132,12 @@ class DepartamentController extends Controller
         return response()->json($contacts, $contacts ? 200 : 404);
     }
 
+    public function getContactDepartament(Request $request, $id)
+    {
+        $departaments =Contact::findOrFail($id)->departament()->paginate(5);
+        return response()->json($departaments, $departaments ? 200 : 404);
+    }
+
     public function getDepartamentAll(Request $req){
         $departaments = new Departament();
         
