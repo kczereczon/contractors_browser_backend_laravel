@@ -61,6 +61,7 @@ class ContactController extends Controller
     public function store(ContactStoreRequest $request)
     {
         $input = $request->all();
+        
 
         $contact = Contact::create($input['contact']);
 

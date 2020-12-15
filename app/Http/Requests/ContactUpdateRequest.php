@@ -37,7 +37,8 @@ class ContactUpdateRequest extends FormRequest
             "name" => ["string"],
             "last_name" => ["string"],
             "email" => ["email"],
-            "phone" => ["string","digits:9"]
+            "phone" => ["string","digits:9"],
+            "departament_id" => ["required"]
 
         ];
     }

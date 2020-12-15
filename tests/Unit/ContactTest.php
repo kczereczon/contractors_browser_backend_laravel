@@ -26,7 +26,12 @@ class ContactTest extends TestCase
 
     public function testCreateContact()
     {
+        $contact = $this->createContact();
+        $contractor = $this->createContractor();
+        
         $contactFaked = Contact::factory()->make()->toArray();
+        $contactFaked['departament_id'] = $contractor->departaments[0]->id;
+
 
         $response = $this->json('POST', '/api/web/contact', array_merge(["contact" => $contactFaked]));
         $response->assertStatus(200);
@@ -65,7 +70,10 @@ class ContactTest extends TestCase
     public function testUpdateContact()
     {
         $contact = $this->createContact();
+        $contractor = $this->createContractor();
+        
         $contactFaked = Contact::factory()->make()->toArray();
+        $contactFaked['departament_id'] = $contractor->departaments[0]->id;
 
         $response = $this->json('PUT', '/api/web/contact/' . $contact->id, $contactFaked);
         $response->assertStatus(200);

@@ -38,6 +38,7 @@ class ContactStoreRequest extends FormRequest
             "contact.last_name" => ["required"],
             "contact.email" => ["required", "email"],
             "contact.phone" => ["required", "digits:9"],
+            "contact.departament_id" => ["required"]
         ];
     }
 }
