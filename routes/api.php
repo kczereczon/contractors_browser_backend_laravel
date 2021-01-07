@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ContractorController;
+use App\Http\Controllers\Api\FakedInvoicesController;
 use App\Http\Controllers\Web\ContractorController as WebContractorController;
 use App\Http\Controllers\Web\ContactController as WebContactController;
 use App\Http\Controllers\Web\DepartamentController as WebDepartamentController;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('contractor', ContractorController::class, ['as'=>'api']);
+Route::get('invoices', [FakedInvoicesController::class, 'index']);
 Route::prefix('web')->group(function () {
     Route::get('/departament/contractor/{id}', [WebDepartamentController::class, 'getContractorDepartament']);
     Route::get('/contact/departament/{id}', [WebDepartamentController::class, 'getDepartamentContact']);
