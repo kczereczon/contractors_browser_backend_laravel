@@ -32,7 +32,7 @@ class FakedInvoicesController extends Controller
                 "ID" => $i,
                 "Numer_faktury" => $date . $i,
                 "NIP" => $this->randomizedNip(),
-                "Status" => array_rand($statuses),
+                "Status" => $statuses[array_rand($statuses)],
                 "Data_płatności" => $paymentDate->format("Y-m-d"),
                 "Wartosc_faktury_brutto" => rand(100,10000)
             ];
