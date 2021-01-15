@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class FakedInvoicesController extends Controller
 {
-    public function index(Request $request)
+    public function show(Request $request, string $nip)
     {
         $data = [];
         $statuses = [
@@ -31,7 +31,7 @@ class FakedInvoicesController extends Controller
             $data[] = [
                 "ID" => $i,
                 "Numer_faktury" => $date . $i,
-                "NIP" => $this->randomizedNip(),
+                "NIP" => $nip,
                 "Status" => $statuses[array_rand($statuses)],
                 "Data_płatności" => $paymentDate->format("Y-m-d"),
                 "Wartosc_faktury_brutto" => rand(100,10000)

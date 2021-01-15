@@ -18,18 +18,20 @@ class InvoicesFakedTest extends TestCase
     //    }
     public function testGetInvoices()
     {
+        $nip = "9333939393";
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices");
+        $response = $this->get("/api/invoices/".$nip);
         $response = $this->assertJsonStructure($response);
     }
 
     public function testGetInvoicesFrom()
     {
+        $nip = "9333939393";
         $dateFrom = new DateTime();
         $dateFrom = $dateFrom->format('Y-m-d');
 
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices?data_od=$dateFrom");
+        $response = $this->get("/api/invoices/".$nip."?data_od=$dateFrom");
         $response = $this->assertJsonStructure($response);
 
         $decodedResponse = json_decode($response->baseResponse->content(), true);
@@ -44,11 +46,12 @@ class InvoicesFakedTest extends TestCase
 
     public function testGetInvoicesTo()
     {
+        $nip = "9333939393";
         $dateTo = new DateTime();
         $dateTo = $dateTo->format('Y-m-d');
 
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices?data_do=$dateTo");
+        $response = $this->get("/api/invoices/".$nip."?data_do=$dateTo");
         $response = $this->assertJsonStructure($response);
 
         $decodedResponse = json_decode($response->baseResponse->content(), true);
@@ -63,6 +66,7 @@ class InvoicesFakedTest extends TestCase
 
     public function testGetInvoicesFromTo()
     {
+        $nip = "9333939393";
         $dateTo = new DateTime('now +1');
         $dateTo = $dateTo->format('Y-m-d');
 
@@ -70,7 +74,7 @@ class InvoicesFakedTest extends TestCase
         $dateFrom = $dateFrom->format('Y-m-d');
 
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices?data_od=$dateFrom&data_do=$dateTo");
+        $response = $this->get("/api/invoices/".$nip."?data_od=$dateFrom&data_do=$dateTo");
         $response = $this->assertJsonStructure($response);
 
         $decodedResponse = json_decode($response->baseResponse->content(), true);
