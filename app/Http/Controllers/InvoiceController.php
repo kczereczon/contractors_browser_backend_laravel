@@ -2,21 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contractor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 class InvoiceController extends Controller
 {
-    public function show(Request $request, string $nip)
+    public function show(Request $request, Contractor $contractor)
     {
         $apiBase = env("INVOICES_API_BASE", null);
 
         if($apiBase) {
-            return Http::get($apiBase."/".$nip);
+            return Http::get(
+                $apiBase."/".$contractor['nip'],
+                [
+                    "date_from" => $request->date_from,
+                    "date_to" => $request->date_from,
+                ]
+        );
         } else {
-            $request = Request::create("/api/faked/invoices/".$nip, 'GET');
-            return Route::dispatch($request);;     
+            $requestCall = Request::create(
+                "/api/faked/invoices/".$contractor['nip'],
+                'GET',
+                [
+                    "date_from" => $request->date_from,
+                    "date_to" => $request->date_from,
+                ]
+            );
+            return Route::dispatch($requestCall);
         }
     }
 }

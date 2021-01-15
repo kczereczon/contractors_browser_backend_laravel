@@ -3,11 +3,13 @@
 namespace Tests\Unit;
 
 use DateTime;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class InvoicesFakedTest extends TestCase
 {
+    use RefreshDatabase;
     // {
     //     ID,
     //     Numer_faktury,
@@ -18,20 +20,21 @@ class InvoicesFakedTest extends TestCase
     //    }
     public function testGetInvoices()
     {
-        $nip = "9333939393";
+        
+        $id = ContractorTest::createContractor()->id;
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$nip);
+        $response = $this->get("/api/invoices/".$id);
         $response = $this->assertJsonStructure($response);
     }
 
     public function testGetInvoicesFrom()
     {
-        $nip = "9333939393";
+        $id = ContractorTest::createContractor()->id;
         $dateFrom = new DateTime();
         $dateFrom = $dateFrom->format('Y-m-d');
 
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$nip."?data_od=$dateFrom");
+        $response = $this->get("/api/invoices/".$id."?data_od=$dateFrom");
         $response = $this->assertJsonStructure($response);
 
         $decodedResponse = json_decode($response->baseResponse->content(), true);
@@ -46,12 +49,12 @@ class InvoicesFakedTest extends TestCase
 
     public function testGetInvoicesTo()
     {
-        $nip = "9333939393";
+        $id = ContractorTest::createContractor()->id;
         $dateTo = new DateTime();
         $dateTo = $dateTo->format('Y-m-d');
 
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$nip."?data_do=$dateTo");
+        $response = $this->get("/api/invoices/".$id."?data_do=$dateTo");
         $response = $this->assertJsonStructure($response);
 
         $decodedResponse = json_decode($response->baseResponse->content(), true);
@@ -66,7 +69,7 @@ class InvoicesFakedTest extends TestCase
 
     public function testGetInvoicesFromTo()
     {
-        $nip = "9333939393";
+        $id = ContractorTest::createContractor()->id;
         $dateTo = new DateTime('now +1');
         $dateTo = $dateTo->format('Y-m-d');
 
@@ -74,7 +77,7 @@ class InvoicesFakedTest extends TestCase
         $dateFrom = $dateFrom->format('Y-m-d');
 
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$nip."?data_od=$dateFrom&data_do=$dateTo");
+        $response = $this->get("/api/invoices/".$id."?data_od=$dateFrom&data_do=$dateTo");
         $response = $this->assertJsonStructure($response);
 
         $decodedResponse = json_decode($response->baseResponse->content(), true);

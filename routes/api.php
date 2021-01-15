@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('contractor', ContractorController::class, ['as'=>'api']);
 Route::get('/faked/invoices/{nip}', [FakedInvoicesController::class, 'show']);
-Route::get('/invoices/{nip}', [InvoiceController::class, 'show']);
+Route::get('/invoices/{contractor}', [InvoiceController::class, 'show']);
 Route::prefix('web')->group(function () {
     Route::get('/departament/contractor/{id}', [WebDepartamentController::class, 'getContractorDepartament']);
     Route::get('/contact/departament/{id}', [WebDepartamentController::class, 'getDepartamentContact']);

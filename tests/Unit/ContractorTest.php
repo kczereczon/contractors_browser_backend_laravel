@@ -97,7 +97,7 @@ class ContractorTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function createContractor()
+    public static function createContractor()
     {
         $contact = Contact::factory()->count(1);
         $departament = Departament::factory()->has($contact)->state(["is_main" => true])->count(1);
