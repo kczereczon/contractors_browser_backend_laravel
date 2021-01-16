@@ -12,29 +12,30 @@ class FakedInvoicesController extends Controller
     {
         $data = [];
         $statuses = [
-            "opłacona",
-            "nieopłcona"
+            "paid",
+            "unpaid"
         ];
         for ($i=1; $i < 10; $i++) {
             $paymentDate = new DateTime();
 
-            if($request->data_od) {
-                $paymentDate = new DateTime($request->data_od." +1");
+            if($request->date_from) {
+                $paymentDate = new DateTime($request->date_from." +1");
             }
 
-            if($request->data_do) {
-                $paymentDate = new DateTime($request->data_do." -1");
+            if($request->date_to) {
+                $paymentDate = new DateTime($request->date_to." -1");
             }
 
             $date = $paymentDate->format("Y/m/d/");
 
             $data[] = [
-                "ID" => $i,
-                "Numer_faktury" => $date . $i,
-                "NIP" => $nip,
-                "Status" => $statuses[array_rand($statuses)],
-                "Data_płatności" => $paymentDate->format("Y-m-d"),
-                "Wartosc_faktury_brutto" => rand(100,10000)
+                "id" => $i,
+                "nip" => $nip,
+                "invoice_status" => $statuses[array_rand($statuses)],
+                "invoice_number" => $i.'/'.date("Y"),
+                "invoice_date" => $paymentDate->format("Y-m-d"),
+                "due_date" => $paymentDate->format("Y-m-d"),
+                "total" => rand(100,10000)
             ];
         }
 

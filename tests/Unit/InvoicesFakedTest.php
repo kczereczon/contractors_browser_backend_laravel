@@ -15,57 +15,57 @@ class InvoicesFakedTest extends TestCase
     //     Numer_faktury,
     //     NIP,
     //     Status,
-    //     Data_płatności,
+    //     invoice_date,
     //     Wartosc_faktury_brutto
     //    }
-    public function testGetInvoices()
-    {
+    // public function testGetInvoices()
+    // {
         
-        $id = ContractorTest::createContractor()->id;
-        /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$id);
-        $response = $this->assertJsonStructure($response);
-    }
+    //     $id = ContractorTest::createContractor()->id;
+    //     /** @var TestResponse $response */
+    //     $response = $this->get("/api/web/invoices/".$id);
+    //     $response = $this->assertJsonStructure($response);
+    // }
 
-    public function testGetInvoicesFrom()
-    {
-        $id = ContractorTest::createContractor()->id;
-        $dateFrom = new DateTime();
-        $dateFrom = $dateFrom->format('Y-m-d');
+    // public function testGetInvoicesFrom()
+    // {
+    //     $id = ContractorTest::createContractor()->id;
+    //     $dateFrom = new DateTime();
+    //     $dateFrom = $dateFrom->format('Y-m-d');
 
-        /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$id."?data_od=$dateFrom");
-        $response = $this->assertJsonStructure($response);
+    //     /** @var TestResponse $response */
+    //     $response = $this->get("/api/web/invoices/".$id."?date_from=$dateFrom");
+    //     $response = $this->assertJsonStructure($response);
 
-        $decodedResponse = json_decode($response->baseResponse->content(), true);
+    //     $decodedResponse = json_decode($response->baseResponse->content(), true);
 
-        foreach ($decodedResponse as $invoice) {
-            $this->assertGreaterThanOrEqual(
-                strtotime($dateFrom),
-                strtotime($invoice['Data_płatności'])
-            );
-        }
-    }
+    //     foreach ($decodedResponse as $invoice) {
+    //         $this->assertGreaterThanOrEqual(
+    //             strtotime($dateFrom),
+    //             strtotime($invoice['invoice_date'])
+    //         );
+    //     }
+    // }
 
-    public function testGetInvoicesTo()
-    {
-        $id = ContractorTest::createContractor()->id;
-        $dateTo = new DateTime();
-        $dateTo = $dateTo->format('Y-m-d');
+    // public function testGetInvoicesTo()
+    // {
+    //     $id = ContractorTest::createContractor()->id;
+    //     $dateTo = new DateTime();
+    //     $dateTo = $dateTo->format('Y-m-d');
 
-        /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$id."?data_do=$dateTo");
-        $response = $this->assertJsonStructure($response);
+    //     /** @var TestResponse $response */
+    //     $response = $this->get("/api/web/invoices/".$id."?date_to=$dateTo");
+    //     $response = $this->assertJsonStructure($response);
 
-        $decodedResponse = json_decode($response->baseResponse->content(), true);
+    //     $decodedResponse = json_decode($response->baseResponse->content(), true);
 
-        foreach ($decodedResponse as $invoice) {
-            $this->assertLessThanOrEqual(
-                strtotime($dateTo),
-                strtotime($invoice['Data_płatności'])
-            );
-        }
-    }
+    //     foreach ($decodedResponse as $invoice) {
+    //         $this->assertLessThanOrEqual(
+    //             strtotime($dateTo),
+    //             strtotime($invoice['invoice_date'])
+    //         );
+    //     }
+    // }
 
     public function testGetInvoicesFromTo()
     {
@@ -77,7 +77,7 @@ class InvoicesFakedTest extends TestCase
         $dateFrom = $dateFrom->format('Y-m-d');
 
         /** @var TestResponse $response */
-        $response = $this->get("/api/invoices/".$id."?data_od=$dateFrom&data_do=$dateTo");
+        $response = $this->get("/api/web/invoices/".$id."?date_from=$dateFrom&date_to=$dateTo");
         $response = $this->assertJsonStructure($response);
 
         $decodedResponse = json_decode($response->baseResponse->content(), true);
@@ -85,12 +85,12 @@ class InvoicesFakedTest extends TestCase
         foreach ($decodedResponse as $invoice) {
             $this->assertLessThanOrEqual(
                 strtotime($dateTo),
-                strtotime($invoice['Data_płatności'])
+                strtotime($invoice['invoice_date'])
             );
 
             $this->assertGreaterThanOrEqual(
                 strtotime($dateFrom),
-                strtotime($invoice['Data_płatności'])
+                strtotime($invoice['invoice_date'])
             );
         }
     }
@@ -99,12 +99,13 @@ class InvoicesFakedTest extends TestCase
     {
         return $response->assertJsonStructure([
             '*' => [
-                "ID",
-                "Numer_faktury",
-                "NIP",
-                "Status",
-                "Data_płatności",
-                "Wartosc_faktury_brutto"
+                "id",
+                "nip",
+                "invoice_status",
+                "invoice_number",
+                "invoice_date",
+                "due_date",
+                "total",
             ]
         ]);
     }
